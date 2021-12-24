@@ -7,7 +7,7 @@ import random
 import asyncio
 load_dotenv('.env')
 
-client = discord.Client()
+client = discord.Client(intents=discord.Intents.all())
 
 @client.event
 async def on_ready():
@@ -25,11 +25,18 @@ corn = {"CORN? In mY SeVEr!?",
 
 @client.event
 async def on_message(message):
+
     if message.author == client.user:
         return
 
     if 'corn' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
+
+    if '🌽' in message.content.lower():
+        await message.channel.send(f'{random.choice(list(corn))}')
+
+    if 'christmas' in message.content.lower():
+        await message.channel.send('CHRISTMAS? In mY SeVEr!?')
 
     if 'social credit' in message.content.lower():
         await message.channel.send('<:HAHAHAHAEMOJI:923651162954153984> OH WOW! sO MuCh SoCiAL CreDiT! <:HAHAHAHAEMOJI:923651162954153984>')
@@ -46,6 +53,9 @@ async def on_message(message):
 
         await message.author.dm_channel.send("Awe, I love you too!")
         await message.author.edit(nick="Fido's Chew Toy")
+
+    if 'free me fido' in message.content.lower():
+        await message.author.edit(nick="")
 
     if re.search('\\bthis\\b', message.content.lower()):
         for mention in message.mentions:
@@ -66,8 +76,6 @@ async def on_message(message):
     if re.search("\\bthat\\b", message.content.lower()):
         await message.author.edit(nick=f"{message.author.nick}".replace("🌽",""))
 
-    if 'free me fido' in message.content.lower():
-        await message.author.edit(nick="")
 
     if 'ping' in message.content.lower():
         await message.channel.send('pong')
@@ -87,6 +95,6 @@ async def on_message(message):
     if isinstance(message.channel, discord.DMChannel):
         channel = client.get_channel(923704077492322324)
         await channel.send(f"{message.author} sent:\n```{message.content}```")
-        await client.process_commands(message)
+        # await client.process_commands(message)
 
 client.run(os.getenv('DISCORD_TOKEN'))
