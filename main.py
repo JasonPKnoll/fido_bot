@@ -40,9 +40,24 @@ async def on_message(message):
 
     if re.search('\\this\\b', message.content.lower()):
         await message.author.edit(nick="YOU DONE DIDDLY DID IT!")
+    if re.search('\\bthis\\b', message.content.lower()):
+        for mention in message.mentions:
+            if mention.bot != True:
+                if mention.nick == None:
+                    await mention.edit(nick=f"{mention.name}"+"🌽")
+                else:
+                    await mention.edit(nick=f"{mention.nick}"+"🌽")
+            else:
+                continue
+
+        if message.author.nick == None:
+            await message.author.edit(nick=f"{message.author.name}"+"🌽")
+        else:
+            await message.author.edit(nick=f"{message.author.nick}"+"🌽")
+
 
     if re.search("\\bthat\\b", message.content.lower()):
-        await message.author.edit(nick="")
+        await message.author.edit(nick=f"{message.author.nick}".replace("🌽",""))
 
     if 'free me fido' in message.content.lower():
         await message.author.edit(nick="")
