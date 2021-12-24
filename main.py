@@ -76,6 +76,18 @@ async def on_message(message):
     if re.search("\\bthat\\b", message.content.lower()):
         await message.author.edit(nick=f"{message.author.nick}".replace("🌽",""))
 
+    if 'spread' in message.content.lower():
+        members = await message.guild.fetch_members(limit=None).flatten()
+        for member in random.sample(members, 5):
+            if member.bot != True:
+                if member.nick == None:
+                    await member.edit(nick=f"{member.name}"+"🌽")
+                else:
+                    await member.edit(nick=f"{member.nick}"+"🌽")
+            else:
+                continue
+
+        await message.channel.send('And so the corn doth spread!')
 
     if 'ping' in message.content.lower():
         await message.channel.send('pong')
