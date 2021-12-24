@@ -1,17 +1,25 @@
 import discord
 from dotenv import load_dotenv
+from discord.ext import commands
 import re
 import os
 import random
 import asyncio
 load_dotenv('.env')
 
+# bot = discord.ext.commands.Bot(command_prefix=('-'))
 client = discord.Client()
+
+# @bot.event
+# async def on_ready():
+#     print('Bot commands ready'
+#     .format(client))
 
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'
     .format(client))
+
 
 corn = {"CORN? In mY SeVEr!?",
         "CORN? IN My sEVeR!?",
@@ -26,9 +34,16 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('ping'):
     if 'corn' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
+
+    if 'social credit' in message.content.lower():
+        await message.channel.send('<:HAHAHAHAEMOJI:923651162954153984> OH WOW! sO MuCh SoCiAL CreDiT! <:HAHAHAHAEMOJI:923651162954153984>')
+
+    if 'who' in message.content.lower():
+        await message.reply('Who?')
+        await asyncio.sleep(3)
+        await message.channel.send('Cares '+message.author.mention)
 
     if 'i love fido' in message.content.lower():
         if message.author.dm_channel == None:
@@ -38,8 +53,6 @@ async def on_message(message):
         await message.author.dm_channel.send("Awe, I love you too!")
         await message.author.edit(nick="Fido's Chew Toy")
 
-    if re.search('\\this\\b', message.content.lower()):
-        await message.author.edit(nick="YOU DONE DIDDLY DID IT!")
     if re.search('\\bthis\\b', message.content.lower()):
         for mention in message.mentions:
             if mention.bot != True:
@@ -61,12 +74,33 @@ async def on_message(message):
 
     if 'free me fido' in message.content.lower():
         await message.author.edit(nick="")
+
+    if 'ping' in message.content.lower():
         await message.channel.send('pong')
 
+    if 'pong' in message.content.lower():
+        await message.channel.send('ping')
+
+    if message.content.lower() == 'h':
+        await message.channel.send(':regional_indicator_h:')
+
+    if 'beep' in message.content.lower():
+        await message.channel.send('boop')
+
+    if 'boop' in message.content.lower():
+        await message.channel.send('beep')
 
     if isinstance(message.channel, discord.DMChannel):
         channel = client.get_channel(923704077492322324)
         await channel.send(f"{message.author} sent:\n```{message.content}```")
         await client.process_commands(message)
+
+# @client.event
+# async def on_message(message):
+#     import pdb; pdb.set_trace()
+#     if isinstance(message.channel, discord.DMChannel):
+#         channel = bot.get_channel(923704077492322324)
+#         await channel.send(f"{message.author} sent:\n```{message.content}```")
+#         await bot.process_commands(message)
 
 client.run(os.getenv('DISCORD_TOKEN'))
