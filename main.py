@@ -7,13 +7,7 @@ import random
 import asyncio
 load_dotenv('.env')
 
-# bot = discord.ext.commands.Bot(command_prefix=('-'))
 client = discord.Client()
-
-# @bot.event
-# async def on_ready():
-#     print('Bot commands ready'
-#     .format(client))
 
 @client.event
 async def on_ready():
@@ -94,13 +88,5 @@ async def on_message(message):
         channel = client.get_channel(923704077492322324)
         await channel.send(f"{message.author} sent:\n```{message.content}```")
         await client.process_commands(message)
-
-# @client.event
-# async def on_message(message):
-#     import pdb; pdb.set_trace()
-#     if isinstance(message.channel, discord.DMChannel):
-#         channel = bot.get_channel(923704077492322324)
-#         await channel.send(f"{message.author} sent:\n```{message.content}```")
-#         await bot.process_commands(message)
 
 client.run(os.getenv('DISCORD_TOKEN'))
