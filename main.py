@@ -48,4 +48,10 @@ async def on_message(message):
         await message.author.edit(nick="")
         await message.channel.send('pong')
 
+
+    if isinstance(message.channel, discord.DMChannel):
+        channel = client.get_channel(923704077492322324)
+        await channel.send(f"{message.author} sent:\n```{message.content}```")
+        await client.process_commands(message)
+
 client.run(os.getenv('DISCORD_TOKEN'))
