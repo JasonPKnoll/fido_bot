@@ -89,6 +89,22 @@ async def on_message(message):
 
         await message.channel.send('And so the corn doth spread!')
 
+    if message.content.lower().startswith('🌽 removeall'):
+        if message.channel.name == "fido-playground":
+            members = await message.guild.fetch_members(limit=None).flatten()
+            filtered_members = []
+            for member in members:
+                if member.nick != None and '🌽' in member.nick:
+                    filtered_members.append(member)
+
+            for member in filtered_members:
+                await member.edit(nick=f"{member.nick}".replace("🌽",""))
+
+            await message.channel.send('I have wipped out the 🌽 plague.')
+
+        else:
+            await message.channel.send('You asked me to wipe the 🌽 plague, but not through the right channel.')
+
     if 'ping' in message.content.lower():
         await message.channel.send('pong')
 
