@@ -1,5 +1,5 @@
 # Simple discord bot
-A simple discord bot that has an obsession with 🌽
+A simple discord bot that has an obsession with 🌽 and possibly other things in the future.
 
 ### Dependencies
 
@@ -20,3 +20,5 @@ A simple discord bot that has an obsession with 🌽
 * anytime someone types `that` in a sentence all of their 🌽  is removed from their name
 * typing `spread` in a sentence causes 🌽  to be put on 5 random members names
 * typing `🌽 removeall` in a channel designated `fido-playground` will remove all 🌽 from all members names
+
+* dm's sent to the bot are forwarded to a channel designated `fido-playground`
