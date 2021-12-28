@@ -14,7 +14,11 @@ async def on_ready():
     print('We have logged in as {0.user}'
     .format(client))
 
-
+emoji = '🌽'
+designated_channel = None
+adder_word = 'this'
+subtractor_word = 'that'
+plague_word = 'spread'
 corn = {"CORN? In mY SeVEr!?",
         "CORN? IN My sEVeR!?",
         "CORN? iN My sEvER!?",
@@ -25,6 +29,11 @@ corn = {"CORN? In mY SeVEr!?",
 
 @client.event
 async def on_message(message):
+    global designated_channel
+    global emoji
+    global adder_word
+    global plague_word
+    global subtractor_word
 
     if message.author == client.user:
         return
@@ -121,8 +130,7 @@ async def on_message(message):
         await message.channel.send('beep')
 
     if isinstance(message.channel, discord.DMChannel):
-        channel = client.get_channel(923704077492322324)
+        channel = client.get_channel(designated_channel.id)
         await channel.send(f"{message.author} sent:\n```{message.content}```")
-        # await client.process_commands(message)
 
 client.run(os.getenv('DISCORD_TOKEN'))
