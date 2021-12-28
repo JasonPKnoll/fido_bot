@@ -80,9 +80,6 @@ async def on_message(message):
     if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 
-    if 'christmas' in message.content.lower():
-        await message.channel.send('CHRISTMAS? In mY SeVEr!?')
-
     if 'social credit' in message.content.lower():
         await message.channel.send('<:HAHAHAHAEMOJI:923651162954153984> OH WOW! sO MuCh SoCiAL CreDiT! <:HAHAHAHAEMOJI:923651162954153984>')
 
@@ -95,7 +92,6 @@ async def on_message(message):
         if message.author.dm_channel == None:
             await message.author.create_dm()
             next
-
         await message.author.dm_channel.send("Awe, I love you too!")
         await message.author.edit(nick="Fido's Chew Toy")
 
