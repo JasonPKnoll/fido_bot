@@ -44,6 +44,15 @@ async def on_message(message):
                 emoji = message.content.lower().split()[1]
             else:
                 await message.channel.send("Needs to be only one character. Note that discord does not support adding custom emoji's to nicknames")
+
+    if message.content.lower().startswith('!setbotchannel'):
+        if message.author.guild_permissions.administrator:
+            channel = discord.utils.get(message.guild.channels, name=message.content.lower().split()[1])
+            if channel:
+                designated_channel = channel
+                await message.channel.send(f"My new home has been set to {channel.name}")
+            else:
+                await message.channel.send(f'Could not find any channel named {message.content.lower().split()[1]}')
     if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 
