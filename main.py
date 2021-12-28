@@ -77,6 +77,11 @@ async def on_message(message):
             emoji = '🌽'
             await message.channel.send(f"Reset: Emoji to {emoji}, Add word to '{adder_word}', clear all word to '{subtractor_word}', and plague word to '{plague_word}'")
 
+    if message.content.lower().startswith('!values'):
+        if designated_channel:
+            await message.channel.send(f"Emoji is set to {emoji}, Add word is set to '{adder_word}', clear all word is set to '{subtractor_word}', and plague word is set to '{plague_word}'")
+            return
+
     if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 

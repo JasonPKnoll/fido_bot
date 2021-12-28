@@ -24,6 +24,7 @@ A simple discord bot that has an obsession with adding emoji's to peoples names
 * Typing `!setaddword` in the `"designated bot channel"` followed by desired word allows the default `"adder word"` to be changed
 * Typing `!setsubtractword` in the `"designated bot channel"` followed by desired word allows the default `"subtractor word"` to be changed
 * Typing `!setplagueword` in the `"designated bot channel"` followed by desired word allows the default `"plaguing word"` to be changed
+* Typing `!values` in the `"designated bot channel"` will display the current bot settings
 
 * DM's sent to the bot are forwarded to the `"designated bot channel"`.
 
