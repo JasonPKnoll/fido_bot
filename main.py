@@ -68,6 +68,15 @@ async def on_message(message):
         if designated_channel:
             plague_word = message.content.lower().split()[1]
             await message.channel.send(f"New word for plaguing the server with {emoji} is '{plague_word}'")
+
+    if message.content.lower().startswith('!resetall'):
+        if designated_channel:
+            subtractor_word = 'that'
+            adder_word = 'this'
+            plague_word = 'spread'
+            emoji = '🌽'
+            await message.channel.send(f"Reset: Emoji to {emoji}, Add word to '{adder_word}', clear all word to '{subtractor_word}', and plague word to '{plague_word}'")
+
     if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 
