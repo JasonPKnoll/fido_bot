@@ -38,6 +38,12 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.content.lower().startswith('!setemoji'):
+        if message.channel.name == f'{designated_channel}':
+            if len(message.content.lower().split()[1]) == 1:
+                emoji = message.content.lower().split()[1]
+            else:
+                await message.channel.send("Needs to be only one character. Note that discord does not support adding custom emoji's to nicknames")
     if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 
