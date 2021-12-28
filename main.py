@@ -53,6 +53,12 @@ async def on_message(message):
                 await message.channel.send(f"My new home has been set to {channel.name}")
             else:
                 await message.channel.send(f'Could not find any channel named {message.content.lower().split()[1]}')
+
+    if message.content.lower().startswith('!setaddword'):
+        if designated_channel:
+            adder_word = message.content.lower().split()[1]
+            await message.channel.send(f"New word for adding {emoji} is '{adder_word}'")
+
     if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 
