@@ -17,7 +17,7 @@ A simple discord bot that has an obsession with adding emoji's to peoples names
 ### Features
 
 * #### Admin Features
-* Typing `!setbotchannel` followed by channel name will make that channel the `"esignated bot channel"` for admin commands and forwarding messages from bot DM's
+* Typing `!setbotchannel` followed by channel name will make that channel the `"designated bot channel"` for admin commands and forwarding messages from bot DM's
 * Typing `!removeall` in the `"designated bot channel"` will remove all of the designated emoji's from all members names
 * Typing `!setemoji` in the `"designated bot channel"` allows the `"default emoji"` to be changed to any specified emoji following the command
   * Ex: `!setemoji 💕`
