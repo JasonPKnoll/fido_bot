@@ -98,53 +98,64 @@ async def on_message(message):
     if 'free me fido' in message.content.lower():
         await message.author.edit(nick="")
 
-    if re.search('\\bthis\\b', message.content.lower()):
+    if re.search(f'\\b{adder_word}\\b', message.content.lower()):
         for mention in message.mentions:
             if mention.bot != True:
                 if mention.nick == None:
-                    await mention.edit(nick=f"{mention.name}"+"🌽")
+                    await mention.edit(nick=f"{mention.name}"+f"{emoji}")
                 else:
-                    await mention.edit(nick=f"{mention.nick}"+"🌽")
+                    await mention.edit(nick=f"{mention.nick}"+f"{emoji}")
+
+                await message.channel.send(f'{mention.nick}'.replace(f"{emoji}","")+f' has gained +1 {emoji}')
             else:
                 continue
 
         if message.author.nick == None:
-            await message.author.edit(nick=f"{message.author.name}"+"🌽")
+            await message.author.edit(nick=f"{message.author.name}"+f"{emoji}")
         else:
-            await message.author.edit(nick=f"{message.author.nick}"+"🌽")
+            await message.author.edit(nick=f"{message.author.nick}"+f"{emoji}")
 
+        await message.channel.send(f'{message.author.nick}'.replace(f"{emoji}","")+f' has gained +1 {emoji}')
 
-    if re.search("\\bthat\\b", message.content.lower()):
-        await message.author.edit(nick=f"{message.author.nick}".replace("🌽",""))
+    if re.search(f"\\b{subtractor_word}\\b", message.content.lower()):
+        x = len(message.author.nick)
+        await message.author.edit(nick=f"{message.author.nick}".replace(f"{emoji}",""))
+        await message.channel.send(f"{message.author.nick} removed {abs(len(message.author.nick)-x)} {emoji}")
 
-    if 'spread' in message.content.lower():
+    if re.search(f"\\b{plague_word}\\b", message.content.lower()):
         members = await message.guild.fetch_members(limit=None).flatten()
         for member in random.sample(members, 5):
-            if member.bot != True:
+            if member.bot != True and member.guild_permissions.administrator != True:
                 if member.nick == None:
-                    await member.edit(nick=f"{member.name}"+"🌽")
+                    await member.edit(nick=f"{member.name}"+f"{emoji}")
                 else:
-                    await member.edit(nick=f"{member.nick}"+"🌽")
+                    await member.edit(nick=f"{member.nick}"+f"{emoji}")
+
+                await message.channel.send(f'{member.nick}'.replace(f"{emoji}","")+f' has gained +1 {emoji}')
             else:
                 continue
+        await message.channel.send(f'And so the {emoji} doth spread!')
 
-        await message.channel.send('And so the corn doth spread!')
-
-    if message.content.lower().startswith('🌽 removeall'):
-        if message.channel.name == "fido-playground":
+    if message.content.lower().startswith('!removeall'):
+        if message.channel.name == f"{designated_channel}":
             members = await message.guild.fetch_members(limit=None).flatten()
             filtered_members = []
             for member in members:
-                if member.nick != None and '🌽' in member.nick:
+                if member.nick != None and f'{emoji}' in member.nick:
                     filtered_members.append(member)
 
             for member in filtered_members:
-                await member.edit(nick=f"{member.nick}".replace("🌽",""))
+                await member.edit(nick=f"{member.nick}".replace(f"{emoji}",""))
 
-            await message.channel.send('I have wipped out the 🌽 plague.')
+            await message.channel.send(f'I have wipped out the {emoji} plague.')
+            await message.channel.send(f'Everyone has lost their {emoji}')
 
         else:
-            await message.channel.send('You asked me to wipe the 🌽 plague, but not through the right channel.')
+            await message.channel.send(f'You asked me to wipe out the {emoji} plague, but not through the right channel.')
+
+    if 'damn daniel' in message.content.lower():
+        await message.channel.send(f'https://c.tenor.com/sxLBjystCmIAAAAC/damn-daniel-one-piece.gif')
+
 
     if 'ping' in message.content.lower():
         await message.channel.send('pong')
