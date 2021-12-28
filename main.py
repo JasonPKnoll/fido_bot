@@ -137,6 +137,7 @@ async def on_message(message):
     if re.search(f"\\b{plague_word}\\b", message.content.lower()):
         members = await message.guild.fetch_members(limit=None).flatten()
         changed = []
+        import pdb; pdb.set_trace()
         for member in random.sample(members, 5):
             if member.bot == False and member.guild_permissions.administrator == False:
                 if member.nick == None:
@@ -147,7 +148,8 @@ async def on_message(message):
                 changed.append((f'{member.nick}'.replace(f"{emoji}","")))
             else:
                 continue
-        await message.channel.send(f"{', '.join(changed)} have all gained +1 {emoji}")
+        changed = [value for value in changed if value != 'None']
+        await message.channel.send(f"{', '.join(changed)} have gained +1 {emoji}")
         await message.channel.send(f'And so the {emoji} doth spread!')
 
     if message.content.lower().startswith('!removeall'):
