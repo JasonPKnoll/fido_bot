@@ -137,7 +137,6 @@ async def on_message(message):
     if re.search(f"\\b{plague_word}\\b", message.content.lower()):
         members = await message.guild.fetch_members(limit=None).flatten()
         changed = []
-        import pdb; pdb.set_trace()
         for member in random.sample(members, 5):
             if member.bot == False and member.guild_permissions.administrator == False:
                 if member.nick == None:
