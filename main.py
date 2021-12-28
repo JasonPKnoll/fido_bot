@@ -144,10 +144,10 @@ async def on_message(message):
                 else:
                     await member.edit(nick=f"{member.nick}"+f"{emoji}")
 
-                changed.append((f'{member.nick}'.replace(f"{emoji}","")+', '))
+                changed.append((f'{member.nick}'.replace(f"{emoji}","")))
             else:
                 continue
-        await message.channel.send(f'{changed.flatten()} have gained +1 {emoji}')
+        await message.channel.send(f'{', '.join(changed)} have all gained +1 {emoji}')
         await message.channel.send(f'And so the {emoji} doth spread!')
 
     if message.content.lower().startswith('!removeall'):
