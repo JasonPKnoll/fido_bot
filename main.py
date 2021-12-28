@@ -44,6 +44,7 @@ async def on_message(message):
                 emoji = message.content.lower().split()[1]
             else:
                 await message.channel.send("Needs to be only one character. Note that discord does not support adding custom emoji's to nicknames")
+                return
 
     if message.content.lower().startswith('!setbotchannel'):
         if message.author.guild_permissions.administrator:
@@ -51,23 +52,28 @@ async def on_message(message):
             if channel:
                 designated_channel = channel
                 await message.channel.send(f"My new home has been set to {channel.name}")
+                return
             else:
                 await message.channel.send(f'Could not find any channel named {message.content.lower().split()[1]}')
+                return
 
     if message.content.lower().startswith('!setaddword'):
         if designated_channel:
             adder_word = message.content.lower().split()[1]
             await message.channel.send(f"New word for adding {emoji} is '{adder_word}'")
+            return
 
     if message.content.lower().startswith('!setsubtractword'):
         if designated_channel:
             subtractor_word = message.content.lower().split()[1]
             await message.channel.send(f"New word for removing all {emoji} is '{subtractor_word}'")
+            return
 
     if message.content.lower().startswith('!setplagueword'):
         if designated_channel:
             plague_word = message.content.lower().split()[1]
             await message.channel.send(f"New word for plaguing the server with {emoji} is '{plague_word}'")
+            return
 
     if message.content.lower().startswith('!resetall'):
         if designated_channel:
@@ -76,6 +82,7 @@ async def on_message(message):
             plague_word = 'spread'
             emoji = '🌽'
             await message.channel.send(f"Reset: Emoji to {emoji}, Add word to '{adder_word}', clear all word to '{subtractor_word}', and plague word to '{plague_word}'")
+            return
 
     if message.content.lower().startswith('!values'):
         if designated_channel:
@@ -129,16 +136,18 @@ async def on_message(message):
 
     if re.search(f"\\b{plague_word}\\b", message.content.lower()):
         members = await message.guild.fetch_members(limit=None).flatten()
+        changed = []
         for member in random.sample(members, 5):
-            if member.bot != True and member.guild_permissions.administrator != True:
+            if member.bot == False and member.guild_permissions.administrator == False:
                 if member.nick == None:
                     await member.edit(nick=f"{member.name}"+f"{emoji}")
                 else:
                     await member.edit(nick=f"{member.nick}"+f"{emoji}")
 
-                await message.channel.send(f'{member.nick}'.replace(f"{emoji}","")+f' has gained +1 {emoji}')
+                changed.append((f'{member.nick}'.replace(f"{emoji}","")+', '))
             else:
                 continue
+        await message.channel.send(f'{changed.flatten()} have gained +1 {emoji}')
         await message.channel.send(f'And so the {emoji} doth spread!')
 
     if message.content.lower().startswith('!removeall'):
@@ -182,7 +191,7 @@ async def on_message(message):
 
     if message.content.lower().startswith('!transferto'):
         if message.mentions[0] != None:
-            if message.mentions[0].bot != True and message.mentions[0].guild_permissions.administrator != True:
+            if message.mentions[0].bot == False and message.mentions[0].guild_permissions.administrator == False:
                 x = int(message.content.split()[2])
 
                 if f'{x*emoji}' in f'{message.author.nick}':
@@ -203,7 +212,10 @@ async def on_message(message):
                     await message.mentions[0].edit(nick=f"{message.mentions[0].nick}"+f"{emoji*x}")
 
                 await message.author.edit(nick=f"{message.author.nick}".removesuffix(f"{emoji*x}"))
-                await message.channel.send(f'{message.author.nick}'.replace(f"{emoji}","")+f' transfered {x} {emoji} to '+f'{message.mentions[0].nick}'.replace(f"{emoji}",""))
+                if message.author.nick == None:
+                    await message.channel.send(f'{message.author.name}'+f' transfered {x} {emoji} to '+f'{message.mentions[0].nick}'.replace(f"{emoji}",""))
+                else:
+                    await message.channel.send(f'{message.author.nick}'.replace(f"{emoji}","")+f' transfered {x} {emoji} to '+f'{message.mentions[0].nick}'.replace(f"{emoji}",""))
             else:
                 await message.channel.send("Bots and Admins cannot be given emoji's")
 
