@@ -38,10 +38,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if 'corn' in message.content.lower():
-        await message.channel.send(f'{random.choice(list(corn))}')
-
-    if '🌽' in message.content.lower():
+    if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 
     if 'christmas' in message.content.lower():
