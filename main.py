@@ -59,6 +59,10 @@ async def on_message(message):
             adder_word = message.content.lower().split()[1]
             await message.channel.send(f"New word for adding {emoji} is '{adder_word}'")
 
+    if message.content.lower().startswith('!setsubtractword'):
+        if designated_channel:
+            subtractor_word = message.content.lower().split()[1]
+            await message.channel.send(f"New word for removing all {emoji} is '{subtractor_word}'")
     if 'corn' in message.content.lower() or '🌽' in message.content.lower():
         await message.channel.send(f'{random.choice(list(corn))}')
 
