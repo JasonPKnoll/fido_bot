@@ -32,5 +32,10 @@ class Admin(commands.Cog):
         self.client.adder_word = message
         await ctx.channel.send(f"New word for adding {self.client.emoji} is '{self.client.adder_word}'")
 
+    @commands.command()
+    async def setsubtractword(self, ctx, message):
+        self.client.subtractor_word = message
+        await ctx.channel.send(f"New word for removing all {self.client.emoji} is '{self.client.subtractor_word}'")
+
 def setup(client):
     client.add_cog(Admin(client))
