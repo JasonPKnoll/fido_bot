@@ -6,6 +6,10 @@ class Admin(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    # Before Commands
+    async def cog_check(self, ctx):
+        return ctx.author.guild_permissions.administrator
+
     # Commands
     @commands.command()
     async def setemoji(self, ctx, message):
