@@ -27,5 +27,10 @@ class Admin(commands.Cog):
         else:
             await ctx.channel.send("Needs to be only one character. Note that discord does not support adding custom emoji's to nicknames")
 
+    @commands.command()
+    async def setaddword(self, ctx, message):
+        self.client.adder_word = message
+        await ctx.channel.send(f"New word for adding {self.client.emoji} is '{self.client.adder_word}'")
+
 def setup(client):
     client.add_cog(Admin(client))
