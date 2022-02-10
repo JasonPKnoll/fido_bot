@@ -22,25 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-    if message.content.lower().startswith('!infectme'):
-        x = int(message.content.lower().split()[1])
-        if x > 0:
-            y = 0
-            if message.author.nick == None:
-                name = message.author.name
-            else:
-                name = message.author.nick
-            if (len(name) + x) <= 32:
-                pass
-            else:
-                x = 32 - len(name)
-            if message.author.nick == None:
-                await message.author.edit(nick=f"{message.author.name}"+f"{emoji*x}")
-            else:
-                await message.author.edit(nick=f"{message.author.nick}"+f"{emoji*x}")
-
-            await message.channel.send(f'{message.author.nick}'.replace(f"{emoji}","")+f' has gained +{x} {emoji}')
-
     if message.content.lower().startswith('!transferto'):
         if message.mentions[0] != None:
             if message.mentions[0].bot == False and message.mentions[0].guild_permissions.administrator == False:

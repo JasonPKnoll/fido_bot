@@ -60,5 +60,26 @@ class Emoji(commands.Cog):
             await message.channel.send(f"{', '.join(changed)} have gained +1 {self.client.emoji}")
             await message.channel.send(f'And so the {self.client.emoji} doth spread!')
 
+    # Commands
+    @commands.command()
+    async def infectme(self, ctx):
+        x = int(ctx.message.content.lower().split()[1])
+        if x > 0:
+            y = 0
+            if ctx.message.author.nick == None:
+                name = ctx.message.author.name
+            else:
+                name = ctx.message.author.nick
+            if (len(name) + x) <= 32:
+                pass
+            else:
+                x = 32 - len(name)
+            if ctx.message.author.nick == None:
+                await ctx.message.author.edit(nick=f"{ctx.message.author.name}"+f"{self.client.emoji*x}")
+            else:
+                await ctx.message.author.edit(nick=f"{ctx.message.author.nick}"+f"{self.client.emoji*x}")
+
+            await ctx.message.channel.send(f'{ctx.message.author.nick}'.replace(f"{self.client.emoji}","")+f' has gained +{x} {self.client.emoji}')
+
 def setup(client):
     client.add_cog(Emoji(client))
