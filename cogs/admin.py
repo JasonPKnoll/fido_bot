@@ -12,6 +12,15 @@ class Admin(commands.Cog):
 
     # Commands
     @commands.command()
+    async def setbotchannel(self, ctx, message):
+        channel = discord.utils.get(ctx.guild.channels, name=message)
+        if channel:
+            self.client.designated_channel = channel
+            await ctx.channel.send(f"My new home has been set to {channel.name}")
+        else:
+            await ctx.channel.send(f'Could not find any channel named {message}')
+
+    @commands.command()
     async def setemoji(self, ctx, message):
         if len(message) == 1:
             self.client.emoji = message

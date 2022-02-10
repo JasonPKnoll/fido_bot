@@ -22,17 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-    if message.content.lower().startswith('!setbotchannel'):
-        if message.author.guild_permissions.administrator:
-            channel = discord.utils.get(message.guild.channels, name=message.content.lower().split()[1])
-            if channel:
-                designated_channel = channel
-                await message.channel.send(f"My new home has been set to {channel.name}")
-                return
-            else:
-                await message.channel.send(f'Could not find any channel named {message.content.lower().split()[1]}')
-                return
-
     if message.content.lower().startswith('!setaddword'):
         if designated_channel:
             adder_word = message.content.lower().split()[1]
