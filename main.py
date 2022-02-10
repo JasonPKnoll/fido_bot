@@ -64,23 +64,6 @@ async def load(ctx, extension):
         await message.channel.send(f"{', '.join(changed)} have gained +1 {emoji}")
         await message.channel.send(f'And so the {emoji} doth spread!')
 
-    if message.content.lower().startswith('!removeall'):
-        if message.channel.name == f"{designated_channel}":
-            members = await message.guild.fetch_members(limit=None).flatten()
-            filtered_members = []
-            for member in members:
-                if member.nick != None and f'{emoji}' in member.nick:
-                    filtered_members.append(member)
-
-            for member in filtered_members:
-                await member.edit(nick=f"{member.nick}".replace(f"{emoji}",""))
-
-            await message.channel.send(f'I have wipped out the {emoji} plague.')
-            await message.channel.send(f'Everyone has lost their {emoji}')
-
-        else:
-            await message.channel.send(f'You asked me to wipe out the {emoji} plague, but not through the right channel.')
-
     if message.content.lower().startswith('!infectme'):
         x = int(message.content.lower().split()[1])
         if x > 0:

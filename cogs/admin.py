@@ -54,5 +54,19 @@ class Admin(commands.Cog):
     async def values(self, ctx):
         await ctx.channel.send(f"Emoji is set to {self.client.emoji}, Add word is set to '{self.client.adder_word}', clear all word is set to '{self.client.subtractor_word}', and plague word is set to '{self.client.plague_word}'")
 
+    @commands.command()
+    async def removeall(self, ctx):
+        members = await ctx.guild.fetch_members(limit=None).flatten()
+        filtered_members = []
+        for member in members:
+            if member.nick != None and f'{self.client.emoji}' in member.nick:
+                filtered_members.append(member)
+
+        for member in filtered_members:
+            await member.edit(nick=f"{member.nick}".replace(f"{self.client.emoji}",""))
+
+        await ctx.channel.send(f'I have wipped out the {self.client.emoji} plague.')
+        await ctx.channel.send(f'Everyone has lost their {self.client.emoji}')
+
 def setup(client):
     client.add_cog(Admin(client))
