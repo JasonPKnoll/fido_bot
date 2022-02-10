@@ -22,23 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-    if re.search(f"\\b{plague_word}\\b", message.content.lower()):
-        members = await message.guild.fetch_members(limit=None).flatten()
-        changed = []
-        for member in random.sample(members, 5):
-            if member.bot == False and member.guild_permissions.administrator == False:
-                if member.nick == None:
-                    await member.edit(nick=f"{member.name}"+f"{emoji}")
-                else:
-                    await member.edit(nick=f"{member.nick}"+f"{emoji}")
-
-                changed.append((f'{member.nick}'.replace(f"{emoji}","")))
-            else:
-                continue
-        changed = [value for value in changed if value != 'None']
-        await message.channel.send(f"{', '.join(changed)} have gained +1 {emoji}")
-        await message.channel.send(f'And so the {emoji} doth spread!')
-
     if message.content.lower().startswith('!infectme'):
         x = int(message.content.lower().split()[1])
         if x > 0:

@@ -43,5 +43,22 @@ class Emoji(commands.Cog):
             else:
                 await message.channel.send(f"{message.author.nick} removed {abs(len(message.author.nick)-x)} {self.client.emoji}")
 
+        if re.search(f"\\b{self.client.plague_word}\\b", message.content.lower()):
+            members = await message.guild.fetch_members(limit=None).flatten()
+            changed = []
+            for member in random.sample(members, 5):
+                if member.bot == False and member.guild_permissions.administrator == False:
+                    if member.nick == None:
+                        await member.edit(nick=f"{member.name}"+f"{self.client.emoji}")
+                    else:
+                        await member.edit(nick=f"{member.nick}"+f"{self.client.emoji}")
+
+                    changed.append((f'{member.nick}'.replace(f"{self.client.emoji}","")))
+                else:
+                    continue
+            changed = [value for value in changed if value != 'None']
+            await message.channel.send(f"{', '.join(changed)} have gained +1 {self.client.emoji}")
+            await message.channel.send(f'And so the {self.client.emoji} doth spread!')
+
 def setup(client):
     client.add_cog(Emoji(client))
