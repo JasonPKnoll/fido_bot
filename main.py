@@ -22,26 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-
-    if re.search(f'\\b{adder_word}\\b', message.content.lower()):
-        for mention in message.mentions:
-            if mention.bot != True:
-                if mention.nick == None:
-                    await mention.edit(nick=f"{mention.name}"+f"{emoji}")
-                else:
-                    await mention.edit(nick=f"{mention.nick}"+f"{emoji}")
-
-                await message.channel.send(f'{mention.nick}'.replace(f"{emoji}","")+f' has gained +1 {emoji}')
-            else:
-                continue
-
-        if message.author.nick == None:
-            await message.author.edit(nick=f"{message.author.name}"+f"{emoji}")
-        else:
-            await message.author.edit(nick=f"{message.author.nick}"+f"{emoji}")
-
-        await message.channel.send(f'{message.author.nick}'.replace(f"{emoji}","")+f' has gained +1 {emoji}')
-
     if re.search(f"\\b{subtractor_word}\\b", message.content.lower()):
         x = len(message.author.nick)
         await message.author.edit(nick=f"{message.author.nick}".replace(f"{emoji}",""))
