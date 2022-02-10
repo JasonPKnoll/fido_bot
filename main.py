@@ -22,10 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 async def on_message(message):
-
-    if message.author == client.user:
-        return
-
     if message.content.lower().startswith('!setemoji'):
         if message.channel.name == f'{designated_channel}':
             if len(message.content.lower().split()[1]) == 1:
@@ -77,26 +73,6 @@ async def on_message(message):
             await message.channel.send(f"Emoji is set to {emoji}, Add word is set to '{adder_word}', clear all word is set to '{subtractor_word}', and plague word is set to '{plague_word}'")
             return
 
-    if 'corn' in message.content.lower() or '🌽' in message.content.lower():
-        await message.channel.send(f'{random.choice(list(corn))}')
-
-    if 'social credit' in message.content.lower():
-        await message.channel.send('<:HAHAHAHAEMOJI:923651162954153984> OH WOW! sO MuCh SoCiAL CreDiT! <:HAHAHAHAEMOJI:923651162954153984>')
-
-    if 'who' in message.content.lower():
-        await message.reply('Who?')
-        await asyncio.sleep(3)
-        await message.channel.send('Cares '+message.author.mention)
-
-    if 'i love fido' in message.content.lower():
-        if message.author.dm_channel == None:
-            await message.author.create_dm()
-            next
-        await message.author.dm_channel.send("Awe, I love you too!")
-        await message.author.edit(nick="Fido's Chew Toy")
-
-    if 'free me fido' in message.content.lower():
-        await message.author.edit(nick="")
 
     if re.search(f'\\b{adder_word}\\b', message.content.lower()):
         for mention in message.mentions:
@@ -156,9 +132,6 @@ async def on_message(message):
         else:
             await message.channel.send(f'You asked me to wipe out the {emoji} plague, but not through the right channel.')
 
-    if 'damn daniel' in message.content.lower():
-        await message.channel.send(f'https://c.tenor.com/sxLBjystCmIAAAAC/damn-daniel-one-piece.gif')
-
     if message.content.lower().startswith('!infectme'):
         x = int(message.content.lower().split()[1])
         if x > 0:
@@ -208,20 +181,6 @@ async def on_message(message):
             else:
                 await message.channel.send("Bots and Admins cannot be given emoji's")
 
-    if 'ping' in message.content.lower():
-        await message.channel.send('pong')
-
-    if 'pong' in message.content.lower():
-        await message.channel.send('ping')
-
-    if message.content.lower() == 'h':
-        await message.channel.send(':regional_indicator_h:')
-
-    if 'beep' in message.content.lower():
-        await message.channel.send('boop')
-
-    if 'boop' in message.content.lower():
-        await message.channel.send('beep')
 @client.command()
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
