@@ -50,5 +50,9 @@ class Admin(commands.Cog):
         self.client.emoji = '🌽'
         await ctx.channel.send(f"Reset: Emoji to {self.client.emoji}, Add word to '{self.client.adder_word}', clear all word to '{self.client.subtractor_word}', and plague word to '{self.client.plague_word}'")
 
+    @commands.command()
+    async def values(self, ctx):
+        await ctx.channel.send(f"Emoji is set to {self.client.emoji}, Add word is set to '{self.client.adder_word}', clear all word is set to '{self.client.subtractor_word}', and plague word is set to '{self.client.plague_word}'")
+
 def setup(client):
     client.add_cog(Admin(client))

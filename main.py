@@ -22,11 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-    if message.content.lower().startswith('!values'):
-        if designated_channel:
-            await message.channel.send(f"Emoji is set to {emoji}, Add word is set to '{adder_word}', clear all word is set to '{subtractor_word}', and plague word is set to '{plague_word}'")
-            return
-
 
     if re.search(f'\\b{adder_word}\\b', message.content.lower()):
         for mention in message.mentions:
