@@ -22,11 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-    if re.search(f"\\b{subtractor_word}\\b", message.content.lower()):
-        x = len(message.author.nick)
-        await message.author.edit(nick=f"{message.author.nick}".replace(f"{emoji}",""))
-        await message.channel.send(f"{message.author.nick} removed {abs(len(message.author.nick)-x)} {emoji}")
-
     if re.search(f"\\b{plague_word}\\b", message.content.lower()):
         members = await message.guild.fetch_members(limit=None).flatten()
         changed = []
