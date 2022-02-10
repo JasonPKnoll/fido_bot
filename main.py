@@ -7,7 +7,7 @@ import random
 import asyncio
 load_dotenv('.env')
 
-client = discord.Client(intents=discord.Intents.all())
+client = commands.Bot(command_prefix = '!', intents=discord.Intents.all())
 
 client.emoji = '🌽'
 client.designated_channel = None
@@ -21,14 +21,6 @@ async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
 
 @client.event
-async def on_message(message):
-    if message.content.lower().startswith('!setemoji'):
-        if message.channel.name == f'{designated_channel}':
-            if len(message.content.lower().split()[1]) == 1:
-                emoji = message.content.lower().split()[1]
-            else:
-                await message.channel.send("Needs to be only one character. Note that discord does not support adding custom emoji's to nicknames")
-                return
 
     if message.content.lower().startswith('!setbotchannel'):
         if message.author.guild_permissions.administrator:
