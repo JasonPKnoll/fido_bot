@@ -226,9 +226,6 @@ async def on_message(message):
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
 
-    if isinstance(message.channel, discord.DMChannel):
-        channel = client.get_channel(designated_channel.id)
-        await channel.send(f"{message.author} sent:\n```{message.content}```")
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
