@@ -26,6 +26,9 @@ corn = {"CORN? In mY SeVEr!?",
         "A light wind swept over the CORN, and all nature laughed in the sunshine.",
         "Farming looks mighty easy when your plow is a pencil and you're a thousand miles from the CORN field."
         }
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
 
 @client.event
 async def on_message(message):
@@ -234,9 +237,15 @@ async def on_message(message):
 
     if 'boop' in message.content.lower():
         await message.channel.send('beep')
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
 
     if isinstance(message.channel, discord.DMChannel):
         channel = client.get_channel(designated_channel.id)
         await channel.send(f"{message.author} sent:\n```{message.content}```")
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
 
 client.run(os.getenv('DISCORD_TOKEN'))
