@@ -43,6 +43,7 @@ class Emoji(commands.Cog):
             else:
                 await message.channel.send(f"{message.author.nick} removed {abs(len(message.author.nick)-x)} {self.client.emoji}")
 
+
         if re.search(f"\\b{self.client.plague_word}\\b", message.content.lower()):
             members = await message.guild.fetch_members(limit=None).flatten()
             changed = []
@@ -80,6 +81,40 @@ class Emoji(commands.Cog):
                 await ctx.message.author.edit(nick=f"{ctx.message.author.nick}"+f"{self.client.emoji*x}")
 
             await ctx.message.channel.send(f'{ctx.message.author.nick}'.replace(f"{self.client.emoji}","")+f' has gained +{x} {self.client.emoji}')
+
+    @commands.command()
+    async def transferto(self, ctx):
+        if ctx.message.mentions[0] != None:
+            if ctx.message.mentions[0].bot == False and ctx.message.mentions[0].guild_permissions.administrator == False:
+                if len(ctx.message.content.split()) <= 2:
+                    await ctx.message.channel.send("You need to specify an amount")
+                    return
+                x = int(ctx.message.content.split()[2])
+
+                if f'{x*self.client.emoji}' in f'{ctx.message.author.nick}':
+                    pass
+                else:
+                    x = ctx.message.author.nick.count(f'{self.client.emoji}')
+                if ctx.message.mentions[0].nick == None:
+                    name = ctx.message.mentions[0].name
+                else:
+                    name = ctx.message.mentions[0].nick
+                if (len(name) + x) <= 32:
+                    pass
+                else:
+                    x = 32 - len(name)
+                if ctx.message.mentions[0].nick == None:
+                    await ctx.message.mentions[0].edit(nick=f"{ctx.message.mentions[0].name}"+f"{self.client.emoji*x}")
+                else:
+                    await ctx.message.mentions[0].edit(nick=f"{ctx.message.mentions[0].nick}"+f"{self.client.emoji*x}")
+
+                await ctx.message.author.edit(nick=f"{ctx.message.author.nick}".removesuffix(f"{self.client.emoji*x}"))
+                if ctx.message.author.nick == None:
+                    await ctx.message.channel.send(f'{ctx.message.author.name}'+f' transfered {x} {self.client.emoji} to '+f'{ctx.message.mentions[0].nick}'.replace(f"{self.client.emoji}",""))
+                else:
+                    await ctx.message.channel.send(f'{ctx.message.author.nick}'.replace(f"{self.client.emoji}","")+f' transfered {x} {self.client.emoji} to '+f'{ctx.message.mentions[0].nick}'.replace(f"{self.client.emoji}",""))
+            else:
+                await ctx.message.channel.send("Bots and Admins cannot be given emoji's")
 
 def setup(client):
     client.add_cog(Emoji(client))
