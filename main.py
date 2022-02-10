@@ -9,34 +9,19 @@ load_dotenv('.env')
 
 client = discord.Client(intents=discord.Intents.all())
 
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'
-    .format(client))
+client.emoji = '🌽'
+client.designated_channel = None
+client.adder_word = 'this'
+client.subtractor_word = 'that'
+client.plague_word = 'spread'
+client.corn = open("responses/corn.txt").read().splitlines()
 
-emoji = '🌽'
-designated_channel = None
-adder_word = 'this'
-subtractor_word = 'that'
-plague_word = 'spread'
-corn = {"CORN? In mY SeVEr!?",
-        "CORN? IN My sEVeR!?",
-        "CORN? iN My sEvER!?",
-        ":corn: :corn: :corn:",
-        "A light wind swept over the CORN, and all nature laughed in the sunshine.",
-        "Farming looks mighty easy when your plow is a pencil and you're a thousand miles from the CORN field."
-        }
 @client.command()
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
 
 @client.event
 async def on_message(message):
-    global designated_channel
-    global emoji
-    global adder_word
-    global plague_word
-    global subtractor_word
 
     if message.author == client.user:
         return
