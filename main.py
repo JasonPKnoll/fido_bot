@@ -22,12 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-    if message.content.lower().startswith('!setplagueword'):
-        if designated_channel:
-            plague_word = message.content.lower().split()[1]
-            await message.channel.send(f"New word for plaguing the server with {emoji} is '{plague_word}'")
-            return
-
     if message.content.lower().startswith('!resetall'):
         if designated_channel:
             subtractor_word = 'that'
