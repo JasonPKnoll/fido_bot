@@ -42,5 +42,13 @@ class Admin(commands.Cog):
         self.client.plague_word = message
         await ctx.channel.send(f"New word for plaguing the server with {self.client.emoji} is '{self.client.plague_word}'")
 
+    @commands.command()
+    async def resetall(self, ctx):
+        self.client.subtractor_word = 'that'
+        self.client.adder_word = 'this'
+        self.client.plague_word = 'spread'
+        self.client.emoji = '🌽'
+        await ctx.channel.send(f"Reset: Emoji to {self.client.emoji}, Add word to '{self.client.adder_word}', clear all word to '{self.client.subtractor_word}', and plague word to '{self.client.plague_word}'")
+
 def setup(client):
     client.add_cog(Admin(client))

@@ -22,15 +22,6 @@ async def load(ctx, extension):
 
 @client.event
 
-    if message.content.lower().startswith('!resetall'):
-        if designated_channel:
-            subtractor_word = 'that'
-            adder_word = 'this'
-            plague_word = 'spread'
-            emoji = '🌽'
-            await message.channel.send(f"Reset: Emoji to {emoji}, Add word to '{adder_word}', clear all word to '{subtractor_word}', and plague word to '{plague_word}'")
-            return
-
     if message.content.lower().startswith('!values'):
         if designated_channel:
             await message.channel.send(f"Emoji is set to {emoji}, Add word is set to '{adder_word}', clear all word is set to '{subtractor_word}', and plague word is set to '{plague_word}'")
