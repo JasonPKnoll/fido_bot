@@ -18,13 +18,13 @@ A simple discord bot that has an obsession with adding emoji's to peoples names
 
 * #### Admin Features
 * Typing `!setbotchannel` followed by channel name will make that channel the `"designated bot channel"` for admin commands and forwarding messages from bot DM's
-* Typing `!removeall` in the `"designated bot channel"` will remove all of the designated emoji's from all members names
-* Typing `!setemoji` in the `"designated bot channel"` allows the `"default emoji"` to be changed to any specified emoji following the command
+* Typing `!removeall` as admin will remove all of the designated emoji's from all members names
+* Typing `!setemoji` as admin allows the `"default emoji"` to be changed to any specified emoji following the command
   * Ex: `!setemoji 💕`
-* Typing `!setaddword` in the `"designated bot channel"` followed by desired word allows the default `"adder word"` to be changed
-* Typing `!setsubtractword` in the `"designated bot channel"` followed by desired word allows the default `"subtractor word"` to be changed
-* Typing `!setplagueword` in the `"designated bot channel"` followed by desired word allows the default `"plaguing word"` to be changed
-* Typing `!values` in the `"designated bot channel"` will display the current bot settings
+* Typing `!setaddword` as admin followed by desired word allows the default `"adder word"` to be changed
+* Typing `!setsubtractword` as admin followed by desired word allows the default `"subtractor word"` to be changed
+* Typing `!setplagueword` as admin followed by desired word allows the default `"plaguing word"` to be changed
+* Typing `!values` as admin will display the current bot settings
 
 * DM's sent to the bot are forwarded to the `"designated bot channel"`.
 
