@@ -23,7 +23,7 @@ A simple discord bot that has an obsession with adding emoji's to peoples names
   * Ex: `!setemoji 💕`
 * Typing `!setaddword` as admin followed by desired word allows the default `"adder word"` to be changed
 * Typing `!setsubtractword` as admin followed by desired word allows the default `"subtractor word"` to be changed
-* Typing `!setplagueword` as admin followed by desired word allows the default `"plaguing word"` to be changed
+* Typing `!setlotteryword` as admin followed by desired word allows the default `"lottery word"` to be changed
 * Typing `!values` as admin will display the current bot settings
 
 * DM's sent to the bot are forwarded to the `"designated bot channel"`.
@@ -31,8 +31,8 @@ A simple discord bot that has an obsession with adding emoji's to peoples names
 * #### Basic Features
 * Anytime someone types the `adder word` defaulted to `"this"` in a sentence they and anyone they mentioned gets one emoji added to their name
 * Anytime someone types the `subtractor word` defaulted to `"that"` in a sentence all of their emoji's are removed from their name
-* Anytime someone types the `plague word` defaulted to `"spread"` in a sentence causes one emoji to be put on 5 random members names
-* A member typing `!infectme` followed by a number will give that member the desired number of emoji's onto the end of their name or the max allowed if it goes over the character limit.
-  * Ex: `!infectme 4`
+* Anytime someone types the `lottery word` defaulted to `"spread"` in a sentence causes one emoji to be put on 5 random members names
+* A member typing `!giveme` followed by a number will give that member the desired number of emoji's onto the end of their name or the max allowed if it goes over the character limit.
+  * Ex: `!giveme 4`
 * A member typing `!transferto` followed by mentioning another member and then a number will transfer the specified number of emoji's to the mentioned member.
   * Ex: `!transferto @examplemember 3`
