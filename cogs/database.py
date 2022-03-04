@@ -26,6 +26,14 @@ class Database(commands.Cog):
 
             self.client.db_guilds.insert_one(data);
 
+    async def get_guild_settings(self, id):
+        guild_settings = self.client.db_guilds.find({'_id': id})[0]
+        self.client.emoji = guild_settings['emoji']
+        self.client.designated_channel = guild_settings['designated_channel']
+        self.client.adder_word = guild_settings['adder_word']
+        self.client.subtractor_word = guild_settings['subtractor_word']
+        self.client.lottery_word = guild_settings['lottery_word']
+
     # Events
     @commands.Cog.listener()
     async def on_ready(self):
