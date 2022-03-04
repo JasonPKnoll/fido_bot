@@ -16,7 +16,7 @@ class Database(commands.Cog):
             self.client.db_guilds.find({'_id': id})[0]
         except IndexError:
             data = {
-            '_id': guild.id,
+            '_id': id,
             'emoji': '🌽',
             'designated_channel': None,
             'adder_word': 'this',
