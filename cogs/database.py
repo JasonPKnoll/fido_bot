@@ -26,6 +26,15 @@ class Database(commands.Cog):
 
             self.client.db_guilds.insert_one(data);
 
+    async def update_attribute(self, ctx, attribute, new_value):
+        self.client.db_guilds.update_one(
+        {'_id': ctx.guild.id},
+        {'$set': {attribute: new_value}}
+        )
+
+    async def update_many_attributes(self, ctx, attributes):
+        self.client.db_guilds.update_one({'_id': ctx.guild.id}, attributes)
+
     async def get_guild_settings(self, id):
         guild_settings = self.client.db_guilds.find({'_id': id})[0]
         self.client.emoji = guild_settings['emoji']
