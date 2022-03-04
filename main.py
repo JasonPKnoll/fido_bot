@@ -2,15 +2,20 @@ import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 import os
+import pymongo
+from pymongo import MongoClient
+import urllib.parse
+
 load_dotenv('.env')
 
 client = commands.Bot(command_prefix = '!', intents=discord.Intents.all())
 
-client.emoji = '🌽'
-client.designated_channel = None
-client.adder_word = 'this'
-client.subtractor_word = 'that'
-client.plague_word = 'spread'
+DB_USER = urllib.parse.quote_plus(os.getenv('DB_USER'))
+DB_PASSWORD = urllib.parse.quote_plus(os.getenv('DB_PASSWORD'))
+client.cluster = MongoClient(os.getenv('MONGO_URL').format(DB_USER, DB_PASSWORD))
+client.db = client.cluster[os.getenv('DB_NAME')]
+client.db_guilds = client.db["db_guilds"]
+
 client.corn = open("responses/corn.txt").read().splitlines()
 
 @client.command()
