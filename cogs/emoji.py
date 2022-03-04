@@ -15,6 +15,9 @@ class Emoji(commands.Cog):
         if message.author == self.client.user:
             return
 
+        database = self.client.get_cog('Database')
+        await database.get_guild_settings(message.guild.id)
+
         if re.search(f'\\b{self.client.adder_word}\\b', message.content.lower()):
             for mention in message.mentions:
                 if mention.bot != True:
@@ -44,7 +47,7 @@ class Emoji(commands.Cog):
                 await message.channel.send(f"{message.author.nick} removed {abs(len(message.author.nick)-x)} {self.client.emoji}")
 
 
-        if re.search(f"\\b{self.client.plague_word}\\b", message.content.lower()):
+        if re.search(f"\\b{self.client.lottery_word}\\b", message.content.lower()):
             members = await message.guild.fetch_members(limit=None).flatten()
             changed = []
             for member in random.sample(members, 5):
@@ -63,7 +66,10 @@ class Emoji(commands.Cog):
 
     # Commands
     @commands.command()
-    async def infectme(self, ctx):
+    async def giveme(self, ctx):
+        database = self.client.get_cog('Database')
+        await database.get_guild_settings(ctx.guild.id)
+
         x = int(ctx.message.content.lower().split()[1])
         if x > 0:
             y = 0
@@ -84,6 +90,9 @@ class Emoji(commands.Cog):
 
     @commands.command()
     async def transferto(self, ctx):
+        database = self.client.get_cog('Database')
+        await database.get_guild_settings(ctx.guild.id)
+
         if ctx.message.mentions[0] != None:
             if ctx.message.mentions[0].bot == False and ctx.message.mentions[0].guild_permissions.administrator == False:
                 if len(ctx.message.content.split()) <= 2:
