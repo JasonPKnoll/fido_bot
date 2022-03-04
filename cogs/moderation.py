@@ -9,8 +9,12 @@ class Moderation(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if isinstance(message.channel, discord.DMChannel):
-            channel = self.client.get_channel(self.client.designated_channel.id)
-            await channel.send(f"{message.author} sent:\n```{message.content}```")
+            for guild in message.author.mutual_guilds:
+                database = self.client.get_cog('Database')
+                await database.get_guild_settings(guild.id)
+                channel = self.client.get_channel(self.client.designated_channel)
+                if channel:
+                    await channel.send(f"{message.author} sent:\n```{message.content}```")
 
 def setup(client):
     client.add_cog(Moderation(client))
