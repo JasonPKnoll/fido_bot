@@ -40,11 +40,14 @@ class Emoji(commands.Cog):
 
         if re.search(f"\\b{self.client.subtractor_word}\\b", message.content.lower()):
             x = len(message.author.nick)
-            await message.author.edit(nick=f"{message.author.nick}".replace(f"{self.client.emoji}",""))
-            if message.author.nick == None:
-                await message.channel.send(f"{message.author.name} removed {abs(len(message.author.name)-x)} {self.client.emoji}")
-            else:
-                await message.channel.send(f"{message.author.nick} removed {abs(len(message.author.nick)-x)} {self.client.emoji}")
+            y = len(message.author.nick.replace(f"{self.client.emoji}",""))
+
+            if x - y > 0:
+                await message.author.edit(nick=f"{message.author.nick}".replace(f"{self.client.emoji}",""))
+                if message.author.nick == None:
+                    await message.channel.send(f"{message.author.name} removed {abs(len(message.author.name)-x)} {self.client.emoji}")
+                else:
+                    await message.channel.send(f"{message.author.nick} removed {abs(len(message.author.nick)-x)} {self.client.emoji}")
 
 
         if re.search(f"\\b{self.client.lottery_word}\\b", message.content.lower()):
@@ -62,7 +65,7 @@ class Emoji(commands.Cog):
                     continue
             changed = [value for value in changed if value != 'None']
             await message.channel.send(f"{', '.join(changed)} have gained +1 {self.client.emoji}")
-            await message.channel.send(f'And so the {self.client.emoji} doth spread!')
+            await message.channel.send(f"The {self.client.emoji}'s has spread!")
 
     # Commands
     @commands.command()
