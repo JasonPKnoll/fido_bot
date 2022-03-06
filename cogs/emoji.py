@@ -59,7 +59,6 @@ class Emoji(commands.Cog):
 
             changed = [value for value in changed if value != 'None']
             await message.channel.send(f"{', '.join(changed)} have gained +1 {self.client.emoji}")
-            import pdb; pdb.set_trace()
             await message.channel.send(f"{self.client.emoji}'s have spread throughout {message.guild.name}!")
 
     # Commands
