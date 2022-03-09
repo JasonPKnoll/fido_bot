@@ -14,6 +14,9 @@ class Meme(commands.Cog):
         if message.author == self.client.user:
             return
 
+        if message.context.startswith(self.client.command_prefix):
+            return
+
         if 'ping' in message.content.lower():
             await message.channel.send('pong')
 

@@ -15,6 +15,9 @@ class Emoji(commands.Cog):
         if message.author == self.client.user:
             return
 
+        if message.content.startswith(self.client.command_prefix):
+            return
+
         database = self.client.get_cog('Database')
         await database.get_guild_settings(message.guild.id)
 
