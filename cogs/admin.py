@@ -40,18 +40,21 @@ class Admin(commands.Cog):
     @commands.command()
     async def setaddword(self, ctx, message):
         database = self.client.get_cog('Database')
+        await database.get_guild_settings(ctx.guild.id)
         await database.update_attribute(ctx, 'adder_word', message)
         await ctx.channel.send(f"New word for adding {self.client.emoji} is '{message}'")
 
     @commands.command()
     async def setsubtractword(self, ctx, message):
         database = self.client.get_cog('Database')
+        await database.get_guild_settings(ctx.guild.id)
         await database.update_attribute(ctx, 'subtractor_word', message)
         await ctx.channel.send(f"New word for removing all {self.client.emoji} is '{message}'")
 
     @commands.command()
     async def setlotteryword(self, ctx, message):
         database = self.client.get_cog('Database')
+        await database.get_guild_settings(ctx.guild.id)
         await database.update_attribute(ctx, 'lottery_word', message)
         await ctx.channel.send(f"New word for randomly distributing {self.client.emoji} in the server is '{message}'")
 
