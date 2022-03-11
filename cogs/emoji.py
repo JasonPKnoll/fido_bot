@@ -60,7 +60,7 @@ class Emoji(commands.Cog):
 
                 changed.append((f'{member.nick}'.replace(f"{self.client.emoji}","")))
 
-            changed = [value for value in changed if value != 'None']
+            await self.sanitize_urls(changed)
             await message.channel.send(f"{', '.join(changed)} have gained +1 {self.client.emoji}")
             await message.channel.send(f"{self.client.emoji}'s have spread throughout {message.guild.name}!")
 
@@ -128,6 +128,11 @@ class Emoji(commands.Cog):
 
 
     # Helpers
+    async def sanitize_urls(self, array):
+        pattern = re.compile(r"((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z]){2,6}([a-zA-Z0-9\.\&\/\?\:@\-_=#])*")
+        for i, value in enumerate(array):
+            array[i] = pattern.sub("", value)
+
     async def gain_emojis(self, member, amount):
         if member.nick:
             await member.edit(nick=f"{member.nick}"+f"{self.client.emoji * amount}")
